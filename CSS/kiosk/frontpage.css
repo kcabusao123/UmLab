@@ -1,0 +1,84 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Ubuntu', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* ===== FULL SCREEN PAGE ===== */
+.kiosk__page {
+    width: 100vw;
+    height: 100vh;
+    background-color: #F0EFEF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* ===== LOGO ===== */
+.kiosk__logo {
+    position: absolute;
+    top: 20px;
+    left: 24px;
+}
+
+.kiosk__logo img {
+    height: 28px;
+    width: auto;
+    display: block;
+}
+
+/* ===== CENTER CONTENT ===== */
+.kiosk__center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.kiosk__title {
+    font-size: 38px;
+    font-weight: 700;
+    color: #600000;
+    text-align: center;
+}
+
+.kiosk__subtitle {
+    font-size: 15px;
+    font-weight: 400;
+    color: #444;
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+/* ===== BUTTONS ===== */
+.kiosk__btn-row {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.kiosk__btn {
+    background-color: #600000;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 13px 44px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: 'Ubuntu', sans-serif;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: background-color 0.2s;
+}
+
+.kiosk__btn:hover {
+    background-color: #3A0000;
+}
