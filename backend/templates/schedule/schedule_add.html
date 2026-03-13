@@ -1,0 +1,87 @@
+{% extends 'base_app.html' %}
+{% load static %}
+
+{% block title %}Add Schedule – UMLab{% endblock %}
+
+{% block app_css %}
+<link rel="stylesheet" href="{% static 'CSS/schedulesections/schedule-add.css' %}">
+{% endblock %}
+
+{% block main %}
+<main class="sch-form__main">
+
+    <!-- Header -->
+    <div class="sch-form__header">
+        <i class="fa-regular fa-rectangle-list"></i>
+        <h1>Schedule - Physics Laboratory</h1>
+    </div>
+
+    <!-- Form Card -->
+    <div class="sch-form__card">
+
+        <div class="sch-form__row">
+            <label class="sch-form__label" for="room">Room #:</label>
+            <select class="sch-form__input sch-form__select" id="room" name="room" required>
+                <option value="" disabled selected></option>
+                <option value="room1">BE 105</option>
+                <option value="room2">BE 106</option>
+            </select>
+        </div>
+
+        <div class="sch-form__row">
+            <label class="sch-form__label" for="teacher">Name of the Teacher:</label>
+            <input class="sch-form__input" type="text" id="teacher" name="teacher" required>
+        </div>
+
+        <div class="sch-form__row">
+            <label class="sch-form__label" for="class-time-in">Class Time:</label>
+            <div class="sch-time__group">
+                <input class="sch-form__input sch-time__input" type="time" id="class-time-in" name="class_time_in" required>
+                <span class="sch-time__sep">to</span>
+                <input class="sch-form__input sch-time__input" type="time" id="class-time-out" name="class_time_out" required>
+            </div>
+        </div>
+
+        <div class="sch-form__row">
+            <label class="sch-form__label" for="class-schedule">Class Schedule:</label>
+            <select class="sch-form__input sch-form__select" id="class-schedule" name="class_schedule" required>
+                <option value="" disabled selected></option>
+                <option value="mon-wed">Monday to Wednesday</option>
+                <option value="thur-sat">Thursday to Saturday</option>
+            </select>
+        </div>
+
+        <div class="sch-form__row">
+            <label class="sch-form__label" for="class-code">Class Code:</label>
+            <input class="sch-form__input" type="text" id="class-code" name="class_code" required>
+        </div>
+
+        <div class="sch-form__row">
+            <label class="sch-form__label" for="course">Course:</label>
+            <div class="sch-form__input-group">
+                <select class="sch-form__input sch-form__select" id="course" name="course" required onchange="toggleOtherInput(this, 'course-other-add')">
+                    <option value="" disabled selected></option>
+                    <option value="CEE101\L">CEE101\L</option>
+                    <option value="PHYSICS101\L">PHYSICS101\L</option>
+                    <option value="PHYSICS102\L">PHYSICS102\L</option>
+                    <option value="SCI222/L">SCI222/L</option>
+                    <option value="others">OTHERS</option>
+                </select>
+                <input class="sch-form__input" type="text" id="course-other-add" name="course_other" placeholder="Specify course..." style="display:none;">
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="sch-form__actions">
+        <button class="sch-form__btn-submit" type="button" id="submit-btn">Add</button>
+        <button class="sch-form__btn-back" type="button" onclick="window.location.href='{% url 'schedule' %}'">Back</button>
+    </div>
+
+</main>
+{% endblock %}
+
+{% block page_scripts %}
+<script src="{% static 'js/schedule_add.js' %}"></script>
+{% endblock %}

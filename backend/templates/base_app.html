@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'CSS/sidebar.css' %}">
+{% block app_css %}{% endblock %}
+{% endblock %}
+
+{% block body %}
+<div class="app__container">
+    {% include 'sidebar.html' %}
+    {% block main %}{% endblock %}
+</div>
+{% endblock %}
+
+{% block page_js %}
+<script src="{% static 'js/utils.js' %}"></script>
+{% block page_scripts %}{% endblock %}
+{% endblock %}

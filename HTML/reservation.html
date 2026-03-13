@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/global.css">
+    <link rel="stylesheet" href="../CSS/sidebar.css">
+    <link rel="stylesheet" href="../CSS/reservation.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Reservation</title>
+</head>
+<body>
+
+    <div class="app__container">
+
+        <!-- ===== SIDEBAR ===== -->
+        <div id="sidebar-container"></div>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <main class="rsv__main">
+
+            <!-- Header -->
+            <div class="rsv__header">
+                <div class="rsv__header-title">
+                    <i class="fa-regular fa-rectangle-list"></i>
+                    <h1>Reservation - Physics Laboratory</h1>
+                </div>
+                <div class="rsv__header-controls">
+                    <div class="rsv__sort">
+                        <button class="rsv__sort-btn active" data-filter="unapproved">Unapproved</button>
+                        <button class="rsv__sort-btn" data-filter="approved">Approved</button>
+                    </div>
+                    <div class="rsv__filter">
+                        <i class="fa-solid fa-sliders"></i>
+                        <select class="rsv__filter-select">
+                            <option value="morning">Morning</option>
+                            <option value="afternoon">Afternoon</option>
+                            <option value="evening">Evening</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cards List -->
+            <div class="rsv__list">
+
+                <!-- SINGLE RESERVATION CARD — loop this for backend -->
+                <div class="rsv__card">
+                    <div class="rsv__card-tag">Equipment Reservation</div>
+                    <div class="rsv__card-body">
+
+                        <!-- Row 1 -->
+                        <div class="rsv__row rsv__row--2col">
+                            <div class="rsv__field">
+                                <span class="rsv__label">Name of the Borrower:</span>
+                                <span class="rsv__value"></span>
+                            </div>
+                            <div class="rsv__field">
+                                <span class="rsv__label">Class Code:</span>
+                                <span class="rsv__value"></span>
+                            </div>
+                        </div>
+
+                        <!-- Row 2 + Row 3 combined grid (graybox spans both) -->
+                        <div class="rsv__card-grid">
+                            <!-- Top-left: Teacher -->
+                            <div class="rsv__field">
+                                <span class="rsv__label">Name of the Teacher:</span>
+                                <span class="rsv__value"></span>
+                            </div>
+
+                            <!-- Right side: Graybox spanning Row 2 and Row 3 -->
+                            <div class="rsv__graybox rsv__graybox--span">
+                                <div class="rsv__graybox-header">Equipment</div>
+                                <table class="rsv__equip-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Quantity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- loop rows for backend -->
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Bottom-left: Date fields + Course + College -->
+                            <div class="rsv__fields-left">
+                                <div class="rsv__field">
+                                    <span class="rsv__label">Date of Filing:</span>
+                                    <span class="rsv__value"></span>
+                                </div>
+                                <div class="rsv__field">
+                                    <span class="rsv__label">Date of use:</span>
+                                    <span class="rsv__value"></span>
+                                </div>
+                                <div class="rsv__field">
+                                    <span class="rsv__label">Room Num:</span>
+                                    <span class="rsv__value"></span>
+                                </div>
+                                <div class="rsv__field">
+                                    <span class="rsv__label">Date of return:</span>
+                                    <span class="rsv__value"></span>
+                                </div>
+                                <div class="rsv__field">
+                                    <span class="rsv__label">Course:</span>
+                                    <span class="rsv__value"></span>
+                                </div>
+                                <div class="rsv__field">
+                                    <span class="rsv__label">College:</span>
+                                    <span class="rsv__value"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Card Footer -->
+                    <div class="rsv__card-footer">
+                        <div class="rsv__footer-left">
+                            <span class="rsv__status-label">Status: <span class="rsv__status-value">Unapproved</span></span>
+                            <span class="rsv__class-hours">Class Hours:</span>
+                        </div>
+                        <div class="rsv__footer-actions">
+                            <button class="rsv__btn-approve">Approved</button>
+                            <button class="rsv__btn-delete">Delete</button>
+                            <button class="rsv__btn-seemore">See More</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- END RESERVATION CARD -->
+
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>
+
+<script>
+    fetch('sidebar.html')
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('sidebar-container').innerHTML = html;
+            // Set active nav item
+            const active = document.querySelector('.nav__item[data-page="reservation"]');
+            if (active) active.classList.add('active');
+        });
+
+    // Sort toggle — swap active state between Unapproved / Approved
+    document.querySelectorAll('.rsv__sort-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.rsv__sort-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            // TODO: filter cards by btn.dataset.filter when connected to backend
+        });
+    });
+</script>

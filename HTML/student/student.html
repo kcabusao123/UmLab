@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../CSS/global.css">
+    <link rel="stylesheet" href="../../CSS/sidebar.css">
+    <link rel="stylesheet" href="../../CSS/student/student.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Students</title>
+</head>
+<body>
+
+    <div class="app__container">
+
+        <!-- ===== SIDEBAR ===== -->
+        <div id="sidebar-container"></div>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <main class="stu__main">
+
+            <!-- Header -->
+            <div class="stu__header">
+                <div class="stu__header-title">
+                    <i class="fa-regular fa-rectangle-list"></i>
+                    <h1>Students - Physics Laboratory</h1>
+                </div>
+                <div class="stu__header-controls">
+                    <div class="stu__filter">
+                        <i class="fa-solid fa-sliders"></i>
+                        <select class="stu__filter-select">
+                            <option value="morning">Morning</option>
+                            <option value="afternoon">Afternoon</option>
+                            <option value="evening">Evening</option>
+                        </select>
+                    </div>
+                    <a href="student-add.html" class="stu__btn-add">
+                        <i class="fa-solid fa-plus"></i> Add
+                    </a>
+                </div>
+            </div>
+
+            <!-- Student List -->
+            <div class="stu__list">
+
+                <!-- ===== LOOP SECTION START ===== -->
+                <div class="stu__section">
+                    <div class="stu__section-header">
+                        <span class="stu__section-label">Morning<span class="stu__section-code">(10011)</span> - MTW</span>
+                    </div>
+
+                    <!-- LOOP THIS CARD -->
+                    <div class="stu__card">
+                        <span class="stu__card-label">PDF FILE ATTENDANCE DIRI</span>
+                        <button class="stu__print-btn">
+                            <i class="fa-solid fa-print"></i>
+                        </button>
+                    </div>
+                    <!-- END LOOP -->
+                </div>
+
+                <div class="stu__section">
+                    <div class="stu__section-header">
+                        <span class="stu__section-label">Morning<span class="stu__section-code">(10012)</span> - THFS</span>
+                    </div>
+
+                    <!-- LOOP THIS CARD -->
+                    <div class="stu__card">
+                        <span class="stu__card-label">PDF FILE ATTENDANCE DIRI</span>
+                        <button class="stu__print-btn">
+                            <i class="fa-solid fa-print"></i>
+                        </button>
+                    </div>
+                    <!-- END LOOP -->
+                </div>
+                <!-- ===== LOOP SECTION END ===== -->
+
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>
+
+<script>
+    fetch('../sidebar.html')
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('sidebar-container').innerHTML = html;
+            const active = document.querySelector('.nav__item[data-page="students"]');
+            if (active) active.classList.add('active');
+        });
+</script>

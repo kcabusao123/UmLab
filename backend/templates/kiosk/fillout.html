@@ -1,0 +1,141 @@
+{% extends 'kiosk/base_kiosk.html' %}
+{% load static %}
+
+{% block title %}Fill Out Details – UMLab Kiosk{% endblock %}
+
+{% block kiosk_css %}
+<link rel="stylesheet" href="{% static 'CSS/kiosk/fillout-details.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="kiosk__page">
+
+    <div class="kiosk__logo">
+        <img src="{% static 'assets/logo.png' %}" alt="UMLab">
+    </div>
+
+    <button class="kiosk__back-btn" onclick="history.back()">
+        <img src="{% static 'assets/back.png' %}" alt="Back">
+    </button>
+
+    <div class="fo__card">
+
+        <h1 class="fo__title">Fill out the Details</h1>
+
+        <form class="fo__form" id="fillout-form">
+
+            <div class="fo__row">
+                <label class="fo__label" for="class-code">Class Code:</label>
+                <select class="fo__input fo__select" id="class-code" name="class_code" required>
+                    <option value="" disabled selected></option>
+                    {% for s in schedules %}
+                    <option value="{{ s.class_code }}"
+                        data-teacher="{{ s.teacher_name }}"
+                        data-room="{{ s.room_display }}"
+                        data-time="{{ s.class_time_display }}"
+                        data-hours="{{ s.class_hours }}">{{ s.class_code }} — {{ s.teacher_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="fo__row">
+                <label class="fo__label" for="teacher">Name of the Teacher:</label>
+                <input class="fo__input" type="text" id="teacher" name="teacher" readonly placeholder="Auto-filled from Class Code">
+            </div>
+
+            <div class="fo__row">
+                <label class="fo__label" for="borrower">Name of the Borrower:</label>
+                <input class="fo__input" type="text" id="borrower" name="borrower" required>
+            </div>
+
+            <div class="fo__row">
+                <label class="fo__label" for="filing-date">Date of Filing:</label>
+                <input class="fo__input" type="date" id="filing-date" name="filing_date" required>
+            </div>
+
+            <div class="fo__row">
+                <label class="fo__label" for="date-use">Date of use:</label>
+                <input class="fo__input" type="date" id="date-use" name="date_use" required>
+            </div>
+
+            <div class="fo__row">
+                <label class="fo__label" for="date-return">Date of return:</label>
+                <input class="fo__input" type="date" id="date-return" name="date_return" required>
+            </div>
+
+            <div class="fo__row">
+                <label class="fo__label" for="room-num">Room Number:</label>
+                <input class="fo__input" type="text" id="room-num" name="room_num" readonly placeholder="Auto-filled from Class Code">
+            </div>
+
+            <div class="fo__row">
+                <label class="fo__label" for="class-time">Class Time:</label>
+                <input class="fo__input" type="text" id="class-time" name="class_time" readonly placeholder="Auto-filled from Class Code">
+            </div>
+
+            <div class="fo__row">
+                <label class="fo__label" for="college">College:</label>
+                <select class="fo__input fo__select" id="college" name="college" required>
+                    <option value="" disabled selected></option>
+                    <option value="CEE">College of Engineering</option>
+                    <option value="CASE">College of Arts and Sciences</option>
+                    <option value="CCE">College of Computing Education</option>
+                </select>
+            </div>
+
+            <div class="fo__row">
+                <label class="fo__label" for="course">Course:</label>
+                <select class="fo__input fo__select" id="course" name="course" required>
+                    <option value="" disabled selected>Select a college first</option>
+                    <!-- CCE -->
+                    <option value="BSCS"  data-college="CCE">BSCS – Bachelor of Science in Computer Science</option>
+                    <option value="BSIT"  data-college="CCE">BSIT – Bachelor of Science in Information Technology</option>
+                    <option value="BSEMC" data-college="CCE">BSEMC – Bachelor of Science in Entertainment and Multimedia Computing</option>
+                    <option value="BSIS"  data-college="CCE">BSIS – Bachelor of Science in Information Systems</option>
+                    <option value="BLIS"  data-college="CCE">BLIS – Bachelor of Library and Information Science</option>
+                    <option value="BMA"   data-college="CCE">BMA – Bachelor of Multimedia Arts</option>
+                    <!-- CEE -->
+                    <option value="BSCE"   data-college="CEE">BSCE – Bachelor of Science in Civil Engineering</option>
+                    <option value="BSEE"   data-college="CEE">BSEE – Bachelor of Science in Electrical Engineering</option>
+                    <option value="BSME"   data-college="CEE">BSME – Bachelor of Science in Mechanical Engineering</option>
+                    <option value="BSECE"  data-college="CEE">BSECE – Bachelor of Science in Electronics Engineering</option>
+                    <option value="BSCpE"  data-college="CEE">BSCpE – Bachelor of Science in Computer Engineering</option>
+                    <option value="BSChE"  data-college="CEE">BSChE – Bachelor of Science in Chemical Engineering</option>
+                    <!-- CASE -->
+                    <option value="BS Psych"    data-college="CASE">BS Psych – Bachelor of Science in Psychology</option>
+                    <option value="BS Bio"      data-college="CASE">BS Bio – Bachelor of Science in Biology</option>
+                    <option value="BSES"        data-college="CASE">BSES – Bachelor of Science in Environmental Science</option>
+                    <option value="BS SW"       data-college="CASE">BS SW – Bachelor of Science in Social Work</option>
+                    <option value="BS Forestry" data-college="CASE">BS Forestry – Bachelor of Science in Forestry</option>
+                    <option value="BSAF"        data-college="CASE">BSAF – Bachelor of Science in Agroforestry</option>
+                    <option value="BA Comm"     data-college="CASE">BA Comm – Bachelor of Arts in Communication</option>
+                    <option value="BA EL"       data-college="CASE">BA EL – Bachelor of Arts in English Language</option>
+                    <option value="BA PolSci"   data-college="CASE">BA PolSci – Bachelor of Arts in Political Science</option>
+                </select>
+            </div>
+
+            <div class="fo__row">
+                <label class="fo__label">Equipment:</label>
+                <input class="fo__input" type="text" id="equipment-summary" readonly>
+            </div>
+
+        </form>
+
+        <div class="fo__actions">
+            <button class="fo__btn-proceed" type="button" id="proceed-btn">Proceed</button>
+            <button class="fo__btn-back" type="button" onclick="window.history.back()">Back</button>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    const RESERVE_URL   = "{% url 'kiosk_api_reserve' %}";
+    const FRONTPAGE_URL = "{% url 'kiosk_frontpage' %}";
+</script>
+{% endblock %}
+
+{% block page_js %}
+<script src="{% static 'js/kiosk/kiosk_fillout.js' %}"></script>
+{% endblock %}

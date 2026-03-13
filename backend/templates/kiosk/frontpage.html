@@ -1,0 +1,30 @@
+{% extends 'kiosk/base_kiosk.html' %}
+{% load static %}
+
+{% block title %}UMLab Kiosk{% endblock %}
+
+{% block kiosk_css %}
+<link rel="stylesheet" href="{% static 'CSS/kiosk/frontpage.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="kiosk__page">
+
+    <div class="kiosk__logo">
+        <a href="{% url 'signin' %}">
+            <img src="{% static 'assets/logo.png' %}" alt="UMLab">
+        </a>
+    </div>
+
+    <div class="kiosk__center">
+        <h1 class="kiosk__title">Welcome to UMLab!</h1>
+        <p class="kiosk__subtitle">Reserve your equipment now</p>
+
+        <div class="kiosk__btn-row">
+            <button class="kiosk__btn" onclick="window.location.href='{% url 'kiosk_lab' %}?type=student'">STUDENT</button>
+            <button class="kiosk__btn" onclick="window.location.href='{% url 'kiosk_lab' %}?type=instructor'">INSTRUCTOR</button>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

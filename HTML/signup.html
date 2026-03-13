@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/global.css">
+    <link rel="stylesheet" href="../CSS/signin-signout.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Sign Up</title>
+</head>
+
+<body>
+    <div class="signin__container">
+
+        <!-- Left Panel - Sign Up Form -->
+        <div class="signinrightpanel__container">
+            <div class="signin_form">
+                <h1>Sign up to UMLab</h1>
+
+                <div class="input-box">
+                    <img src="../assets/Email.png" alt="Email" class="input-icon">
+                    <input type="email" placeholder="LABORATORY EMAIL" required>
+                </div>
+
+                <div class="input-box">
+                    <img src="../assets/Vefrification Code.png" alt="Verification Code" class="input-icon">
+                    <input type="text" placeholder="VERIFICATION CODE" required>
+                </div>
+
+                <div class="input-box">
+                    <img src="../assets/password.png" alt="Password" class="input-icon">
+                    <input type="password" placeholder="PASSWORD" required>
+                </div>
+
+                <div class="input-box">
+                    <img src="../assets/laboratory.png" alt="Laboratory" class="input-icon">
+                    <select class="input-select" required>
+                        <option value="" disabled selected>LABORATORY</option>
+                        <option value="lab1">Laboratory 1</option>
+                        <option value="lab2">Laboratory 2</option>
+                        <option value="lab3">Laboratory 3</option>
+                    </select>
+                </div>
+
+                <button class="signin__button">Sign Up</button>
+            </div>
+        </div>
+
+        <!-- Right Panel - Dark -->
+        <div class="signupleftpanel__container">
+            <div class="logo">
+                <img src="../assets/logo.png" alt="UMLab" class="logo-img">
+            </div>
+            <h2>Hello There!</h2>
+            <p>"A good university laboratory is not just a room filled with equipment—it's a place where curiosity is tested, failures are studied, and discoveries are born."</p>
+            <button class="signup__button" id="signin-button" onclick="window.location.href='signin.html'">Sign In</button>
+        </div>
+
+    </div>
+</body>
+</html>

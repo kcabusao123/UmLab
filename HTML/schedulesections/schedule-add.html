@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../CSS/global.css">
+    <link rel="stylesheet" href="../../CSS/sidebar.css">
+    <link rel="stylesheet" href="../../CSS/schedulesections/schedule-add.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Add Schedule</title>
+</head>
+<body>
+
+    <div class="app__container">
+
+        <!-- ===== SIDEBAR ===== -->
+        <div id="sidebar-container"></div>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <main class="sch-form__main">
+
+            <!-- Header -->
+            <div class="sch-form__header">
+                <i class="fa-regular fa-rectangle-list"></i>
+                <h1>Schedule - Physics Laboratory</h1>
+            </div>
+
+            <!-- Form Card -->
+            <div class="sch-form__card">
+
+                <div class="sch-form__row">
+                    <label class="sch-form__label" for="room">Room #:</label>
+                    <select class="sch-form__input sch-form__select" id="room" name="room" required>
+                        <option value="" disabled selected></option>
+                        <option value="room1">BE 105</option>
+                        <option value="room2">BE 106</option>
+                    </select>
+                </div>
+
+                <div class="sch-form__row">
+                    <label class="sch-form__label" for="teacher">Name of the Teacher:</label>
+                    <input class="sch-form__input" type="text" id="teacher" name="teacher" required>
+                </div>
+
+                <div class="sch-form__row">
+                    <label class="sch-form__label" for="class-time-in">Class Time:</label>
+                    <div class="sch-time__group">
+                        <input class="sch-form__input sch-time__input" type="time" id="class-time-in" name="class_time_in" required>
+                        <span class="sch-time__sep">to</span>
+                        <input class="sch-form__input sch-time__input" type="time" id="class-time-out" name="class_time_out" required>
+                    </div>
+                </div>
+
+
+
+                <div class="sch-form__row">
+                    <label class="sch-form__label" for="class-schedule">Class Schedule:</label>
+                    <select class="sch-form__input sch-form__select" id="class-schedule" name="class_schedule" required>
+                        <option value="" disabled selected></option>
+                        <option value="mon-wed">Monday to Wednesday</option>
+                        <option value="thur-sat">Thursday to Saturday</option>w
+                    </select>
+                </div>
+
+                <div class="sch-form__row">
+                    <label class="sch-form__label" for="class-code">Class Code:</label>
+                    <input class="sch-form__input" type="text" id="class-code" name="class_code" required>
+                </div>
+
+                <div class="sch-form__row">
+                    <label class="sch-form__label" for="course">Course:</label>
+                    <div class="sch-form__input-group">
+                        <select class="sch-form__input sch-form__select" id="course" name="course" required onchange="toggleOtherInput(this, 'course-other-add')">
+                            <option value="" disabled selected></option>
+                            <option value="CEE101\L">CEE101\L</option>
+                            <option value="PHYSICS101\L">PHYSICS101\L</option>
+                            <option value="PHYSICS102\L">PHYSICS102\L</option>
+                            <option value="SCI222/L">SCI222/L</option>
+                            <option value="others">OTHERS</option>
+                        </select>
+                        <input class="sch-form__input" type="text" id="course-other-add" name="course_other" placeholder="Specify course..." style="display:none;" required>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="sch-form__actions">
+                <button class="sch-form__btn-submit" type="button">Add</button>
+                <button class="sch-form__btn-back" type="button" onclick="window.location.href='schedule.html'">Back</button>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        fetch('../sidebar.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('sidebar-container').innerHTML = html;
+                const active = document.querySelector('.nav__item[data-page="schedule"]');
+                if (active) active.classList.add('active');
+            });
+
+        function toggleOtherInput(select, inputId) {
+            const input = document.getElementById(inputId);
+            if (select.value === 'others') {
+                input.style.display = 'block';
+                input.required = true;
+            } else {
+                input.style.display = 'none';
+                input.required = true;
+                input.value = '';
+            }
+        }
+    </script>
+</body>
+</html>

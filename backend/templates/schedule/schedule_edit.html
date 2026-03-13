@@ -1,0 +1,99 @@
+{% extends 'base_app.html' %}
+{% load static %}
+
+{% block title %}Edit Schedule – UMLab{% endblock %}
+
+{% block app_css %}
+<link rel="stylesheet" href="{% static 'CSS/schedulesections/schedule-edit.css' %}">
+{% endblock %}
+
+{% block main %}
+<main class="sch-edit__main">
+
+    <!-- Hidden field: schedule ID read by schedule_edit.js -->
+    <input type="hidden" id="schedule-id" value="{{ schedule.id }}">
+
+    <!-- Header -->
+    <div class="sch-edit__header">
+        <i class="fa-regular fa-rectangle-list"></i>
+        <h1>Schedule - Physics Laboratory</h1>
+    </div>
+
+    <!-- Form Card -->
+    <div class="sch-edit__card">
+
+        <div class="sch-edit__row">
+            <label class="sch-edit__label" for="room">Room #:</label>
+            <select class="sch-edit__input sch-edit__select" id="room" name="room" required>
+                <option value="" disabled selected></option>
+                <option value="room1">BE 105</option>
+                <option value="room2">BE 10</option>
+            </select>
+        </div>
+
+        <div class="sch-edit__row">
+            <label class="sch-edit__label" for="teacher">Name of the Teacher:</label>
+            <input class="sch-edit__input" type="text" id="teacher" name="teacher" required>
+        </div>
+
+        <div class="sch-edit__row">
+            <label class="sch-edit__label" for="class-time-in">Class Time:</label>
+            <div class="sch-time__group">
+                <input class="sch-edit__input sch-time__input" type="time" id="class-time-in" name="class_time_in" required>
+                <span class="sch-time__sep">to</span>
+                <input class="sch-edit__input sch-time__input" type="time" id="class-time-out" name="class_time_out" required>
+            </div>
+        </div>
+
+        <div class="sch-edit__row">
+            <label class="sch-edit__label" for="class-schedule">Class Schedule:</label>
+            <select class="sch-edit__input sch-edit__select" id="class-schedule" name="class_schedule" required>
+                <option value="" disabled selected></option>
+                <option value="mon-wed">Monday / Wednesday</option>
+                <option value="thur-sat">Thursday / Saturday</option>
+            </select>
+        </div>
+
+        <div class="sch-edit__row">
+            <label class="sch-edit__label" for="class-code">Class Code:</label>
+            <input class="sch-edit__input" type="text" id="class-code" name="class_code" required>
+        </div>
+
+        <div class="sch-edit__row">
+            <label class="sch-edit__label" for="course">Course:</label>
+            <div class="sch-form__input-group">
+                <select class="sch-edit__input sch-edit__select" id="course" name="course" required onchange="toggleOtherInput(this, 'course-other-edit')">
+                    <option value="" disabled selected></option>
+                    <option value="bsit">BSIT</option>
+                    <option value="bscs">BSCS</option>
+                    <option value="bsce">BSCE</option>
+                    <option value="bsee">BSEE</option>
+                    <option value="others">OTHERS</option>
+                </select>
+                <input class="sch-edit__input" type="text" id="course-other-edit" name="course_other" placeholder="Specify course..." style="display:none;">
+            </div>
+        </div>
+
+        <div class="sch-edit__row">
+            <label class="sch-edit__label" for="status">Official/Tentative:</label>
+            <select class="sch-edit__input sch-edit__select" id="status" name="status" required>
+                <option value="" disabled selected></option>
+                <option value="official">Official</option>
+                <option value="tentative">Tentative</option>
+            </select>
+        </div>
+
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="sch-edit__actions">
+        <button class="sch-edit__btn-submit" type="button" id="save-btn">Save Changes</button>
+        <button class="sch-edit__btn-back" type="button" onclick="window.location.href='{% url 'schedule' %}'">Back</button>
+    </div>
+
+</main>
+{% endblock %}
+
+{% block page_scripts %}
+<script src="{% static 'js/schedule_edit.js' %}"></script>
+{% endblock %}

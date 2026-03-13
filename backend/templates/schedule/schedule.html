@@ -1,0 +1,65 @@
+{% extends 'base_app.html' %}
+{% load static %}
+
+{% block title %}Schedule – UMLab{% endblock %}
+
+{% block app_css %}
+<link rel="stylesheet" href="{% static 'CSS/schedulesections/schedule.css' %}">
+{% endblock %}
+
+{% block main %}
+<main class="sch__main">
+
+    <!-- Header -->
+    <div class="sch__header">
+        <div class="sch__header-title">
+            <i class="fa-regular fa-calendar"></i>
+            <h1>Schedule - Physics Laboratory</h1>
+        </div>
+        <div class="sch__header-controls">
+            <div class="sch__filter">
+                <i class="fa-solid fa-sliders"></i>
+                <select class="sch__filter-select" id="session-filter">
+                    <option value="morning">Morning</option>
+                    <option value="afternoon">Afternoon</option>
+                    <option value="evening">Evening</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add button row -->
+    <div class="sch__add-row">
+        <button class="sch__btn-add" onclick="window.location.href='{% url 'schedule_add' %}'">+ Add</button>
+    </div>
+
+    <!-- ===== MORNING SESSION ===== -->
+    <div class="sch__session" id="section-morning">
+        <h2 class="sch__session-label" id="label-morning">
+            <span class="sch__session-name" id="session-name-morning">Morning</span>
+        </h2>
+        <div class="sch__list" id="list-morning"></div>
+    </div>
+
+    <!-- ===== AFTERNOON SESSION ===== -->
+    <div class="sch__session" id="section-afternoon">
+        <h2 class="sch__session-label" id="label-afternoon">
+            <span class="sch__session-name" id="session-name-afternoon">Afternoon</span>
+        </h2>
+        <div class="sch__list" id="list-afternoon"></div>
+    </div>
+
+    <!-- ===== EVENING SESSION ===== -->
+    <div class="sch__session" id="section-evening">
+        <h2 class="sch__session-label" id="label-evening">
+            <span class="sch__session-name" id="session-name-evening">Evening</span>
+        </h2>
+        <div class="sch__list" id="list-evening"></div>
+    </div>
+
+</main>
+{% endblock %}
+
+{% block page_scripts %}
+<script src="{% static 'js/schedule.js' %}"></script>
+{% endblock %}

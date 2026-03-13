@@ -1,0 +1,215 @@
+================================================================================
+  UMLAB — DATABASE SCHEMA
+  Generated from Django models
+================================================================================
+
+--------------------------------------------------------------------------------
+TABLE: auth_user  (Django built-in)
+--------------------------------------------------------------------------------
+  id              SERIAL          PRIMARY KEY
+  username        VARCHAR(150)    NOT NULL UNIQUE
+  email           VARCHAR(254)    NOT NULL
+  password        VARCHAR(128)    NOT NULL  (hashed)
+  first_name      VARCHAR(150)
+  last_name       VARCHAR(150)
+  is_staff        BOOLEAN         DEFAULT FALSE
+  is_active       BOOLEAN         DEFAULT TRUE
+  is_superuser    BOOLEAN         DEFAULT FALSE
+  date_joined     TIMESTAMP
+  last_login      TIMESTAMP
+
+  Notes:
+  - Used for signin/signup (core/views.py)
+  - Superusers can log in with username in the email field
+
+
+--------------------------------------------------------------------------------
+TABLE: schedule_schedule
+--------------------------------------------------------------------------------
+  id              SERIAL          PRIMARY KEY
+  room            VARCHAR(50)     NOT NULL
+  teacher_name    VARCHAR(200)    NOT NULL
+  class_time_in   TIME            NOT NULL
+  class_time_out  TIME            NOT NULL
+  class_schedule  VARCHAR(20)     NOT NULL   -- 'mon-wed' | 'thur-sat'
+  class_code      VARCHAR(50)     NOT NULL
+  course          VARCHAR(100)    NOT NULL
+  status          VARCHAR(20)     NOT NULL   DEFAULT 'tentative'
+                                             -- 'official' | 'tentative'
+  created_at      TIMESTAMP       NOT NULL   AUTO (on create)
+  updated_at      TIMESTAMP       NOT NULL   AUTO (on update)
+
+  Derived (not stored):
+  - session: 'morning' (before 12:00) | 'afternoon' (12:00–17:29) | 'evening' (17:30+)
+
+  Ordered by: class_time_in ASC
+
+
+--------------------------------------------------------------------------------
+TABLE: dashboard_attendance
+--------------------------------------------------------------------------------
+  id              SERIAL          PRIMARY KEY
+  schedule_id     INTEGER         NOT NULL   FK → schedule_schedule(id) ON DELETE CASCADE
+  date            DATE            NOT NULL
+  status          VARCHAR(20)     NOT NULL   DEFAULT 'pending'
+                                             -- 'pending' | 'present' | 'absent'
+  total_hours     DECIMAL(6,2)    NOT NULL   DEFAULT 0
+
+  UNIQUE: (schedule_id, date)
+  Ordered by: date DESC
+
+  Notes:
+  - One attendance record per schedule per day
+  - Created automatically when dashboard is loaded (get_or_create)
+
+
+--------------------------------------------------------------------------------
+TABLE: reservation_reservation
+--------------------------------------------------------------------------------
+  id              SERIAL          PRIMARY KEY
+  borrower_name   VARCHAR(200)    NOT NULL
+  class_code      VARCHAR(50)     NOT NULL
+  teacher_name    VARCHAR(200)    NOT NULL
+  date_filed      DATE            NOT NULL
+  date_of_use     DATE            NOT NULL
+  room_num        VARCHAR(50)     NOT NULL
+  date_of_return  DATE            NOT NULL
+  course          VARCHAR(100)    NOT NULL
+  college         VARCHAR(200)    NOT NULL
+  status          VARCHAR(20)     NOT NULL   DEFAULT 'unapproved'
+                                             -- 'unapproved' | 'approved'
+  class_hours     DECIMAL(5,2)    NULL
+  created_at      TIMESTAMP       NOT NULL   AUTO (on create)
+  updated_at      TIMESTAMP       NOT NULL   AUTO (on update)
+
+  Ordered by: created_at DESC
+
+
+--------------------------------------------------------------------------------
+TABLE: reservation_reservationequipment
+--------------------------------------------------------------------------------
+  id              SERIAL          PRIMARY KEY
+  reservation_id  INTEGER         NOT NULL   FK → reservation_reservation(id) ON DELETE CASCADE
+  name            VARCHAR(200)    NOT NULL
+  quantity        INTEGER         NOT NULL   (positive)
+
+  Notes:
+  - One reservation can have multiple equipment rows
+  - Accessed via reservation.equipment.all()
+
+
+--------------------------------------------------------------------------------
+TABLE: students_studentgroup
+--------------------------------------------------------------------------------
+  id              SERIAL          PRIMARY KEY
+  teacher_name    VARCHAR(200)    NOT NULL
+  class_time_in   TIME            NOT NULL
+  class_time_out  TIME            NOT NULL
+  class_schedule  VARCHAR(10)     NOT NULL   -- 'mtw' | 'thfs'
+  class_code      VARCHAR(50)     NOT NULL
+  course          VARCHAR(100)    NOT NULL
+  attendance_file VARCHAR(...)    NULL       -- file path under media/attendance/
+  created_at      TIMESTAMP       NOT NULL   AUTO (on create)
+
+  Derived (not stored):
+  - session: 'morning' | 'afternoon' | 'evening'  (same logic as schedule)
+
+  Ordered by: class_time_in ASC
+
+
+--------------------------------------------------------------------------------
+TABLE: kiosk_equipment
+--------------------------------------------------------------------------------
+  id                 SERIAL          PRIMARY KEY
+  name               VARCHAR(200)    NOT NULL
+  lab                VARCHAR(50)     NOT NULL
+                                     -- 'physics' | 'biology' | 'civil' | 'chemistry'
+                                     -- 'culinary' | 'electrical' | 'mechanical' | 'hydraulic'
+  image              VARCHAR(...)    NULL       -- file path under media/equipment/
+  available_quantity INTEGER         NOT NULL   DEFAULT 1  (positive)
+
+  Ordered by: name ASC
+
+  Notes:
+  - Managed via Django admin
+  - Served to kiosk frontend via GET /kiosk/api/equipment/?lab=<lab>
+  - image exposed as URL via Equipment.to_dict()
+
+
+================================================================================
+  RELATIONSHIPS
+================================================================================
+
+  auth_user
+      │
+      └── (no direct FK, but used for login session)
+
+  schedule_schedule
+      │
+      └──< dashboard_attendance (schedule_id)   ONE-TO-MANY
+
+  reservation_reservation
+      │
+      └──< reservation_reservationequipment (reservation_id)   ONE-TO-MANY
+
+  students_studentgroup
+      └── (standalone, linked only via attendance_file upload)
+
+  kiosk_equipment
+      └── (standalone; selected items are passed to reservation_reservation
+           and reservation_reservationequipment on kiosk checkout)
+
+
+================================================================================
+  KIOSK FLOW (no dedicated kiosk reservation table)
+================================================================================
+
+  Kiosk reservations reuse reservation_reservation + reservation_reservationequipment.
+  On POST /kiosk/api/reserve/ the following records are created:
+
+    reservation_reservation row:
+      borrower_name   ← form input
+      class_code      ← form input
+      teacher_name    ← form input
+      date_filed      ← today
+      date_of_use     ← form input
+      room_num        ← form input (lab selected by user)
+      date_of_return  ← form input
+      course          ← form input
+      college         ← form input
+      status          = 'unapproved'
+
+    reservation_reservationequipment row (one per cart item):
+      reservation_id  ← above reservation
+      name            ← equipment name from cart
+      quantity        ← quantity from cart
+
+
+================================================================================
+  POSTGRESQL SETUP
+================================================================================
+
+  1. Create the database:
+     CREATE DATABASE umlab_db;
+     CREATE USER umlab_user WITH PASSWORD 'yourpassword';
+     GRANT ALL PRIVILEGES ON DATABASE umlab_db TO umlab_user;
+
+  2. Set environment variables (create backend/.env):
+     DB_NAME=umlab_db
+     DB_USER=umlab_user
+     DB_PASSWORD=yourpassword
+     DB_HOST=localhost
+     DB_PORT=5432
+
+  3. Install psycopg2:
+     pip install psycopg2-binary
+
+  4. Run migrations:
+     python manage.py migrate
+
+  5. Create superuser:
+     python manage.py createsuperuser
+
+  Config file: backend/umlab/settings.py  (DATABASES section, lines ~63-78)
+
+================================================================================

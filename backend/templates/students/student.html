@@ -1,0 +1,42 @@
+{% extends 'base_app.html' %}
+{% load static %}
+
+{% block title %}Students – UMLab{% endblock %}
+
+{% block app_css %}
+<link rel="stylesheet" href="{% static 'CSS/student/student.css' %}">
+{% endblock %}
+
+{% block main %}
+<main class="stu__main">
+
+    <!-- Header -->
+    <div class="stu__header">
+        <div class="stu__header-title">
+            <i class="fa-regular fa-rectangle-list"></i>
+            <h1>Students - Physics Laboratory</h1>
+        </div>
+        <div class="stu__header-controls">
+            <div class="stu__filter">
+                <i class="fa-solid fa-sliders"></i>
+                <select class="stu__filter-select" id="session-filter">
+                    <option value="morning">Morning</option>
+                    <option value="afternoon">Afternoon</option>
+                    <option value="evening">Evening</option>
+                </select>
+            </div>
+            <a href="{% url 'student_add' %}" class="stu__btn-add">
+                <i class="fa-solid fa-plus"></i> Add
+            </a>
+        </div>
+    </div>
+
+    <!-- Student List — populated by students.js -->
+    <div class="stu__list" id="student-list"></div>
+
+</main>
+{% endblock %}
+
+{% block page_scripts %}
+<script src="{% static 'js/students.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'CSS/signin-signout.css' %}">
+{% endblock %}
+
+{% block title %}Sign Up – UMLab{% endblock %}
+
+{% block body %}
+<div class="signin__container">
+
+    <!-- Left Panel - Sign Up Form -->
+    <div class="signinrightpanel__container">
+        <div class="signin_form">
+            <h1>Sign up to UMLab</h1>
+
+            <div class="input-box">
+                <img src="{% static 'assets/Email.png' %}" alt="Email" class="input-icon">
+                <input type="email" id="signup-email" placeholder="LABORATORY EMAIL" required>
+            </div>
+
+            <div class="input-box">
+                <img src="{% static 'assets/Vefrification Code.png' %}" alt="Verification Code" class="input-icon">
+                <input type="text" placeholder="VERIFICATION CODE" required>
+            </div>
+
+            <div class="input-box">
+                <img src="{% static 'assets/password.png' %}" alt="Password" class="input-icon">
+                <input type="password" id="signup-password" placeholder="PASSWORD" required>
+            </div>
+
+            <div class="input-box">
+                <img src="{% static 'assets/laboratory.png' %}" alt="Laboratory" class="input-icon">
+                <select class="input-select" required>
+                    <option value="" disabled selected>LABORATORY</option>
+                    <option value="lab1">Physics</option>
+                    <option value="lab2">Chemistry</option>
+                    <option value="lab3">Biology</option>
+                    <option value="lab4">Civil</option>
+                    <option value="lab5">Culinary</option>
+                    <option value="lab6">Electrical</option>
+                    <option value="lab7">Mechanical</option>
+                    <option value="lab8">Hydraulic</option>
+                </select>
+            </div>
+
+            <button class="signin__button" id="signup-btn">Sign Up</button>
+        </div>
+    </div>
+
+    <!-- Right Panel - Dark -->
+    <div class="signupleftpanel__container">
+        <div class="logo">
+            <img src="{% static 'assets/logo.png' %}" alt="UMLab" class="logo-img">
+        </div>
+        <h2>Hello There!</h2>
+        <p>"A good university laboratory is not just a room filled with equipment—it's a place where curiosity is tested, failures are studied, and discoveries are born."</p>
+        <button class="signup__button" id="signin-button" onclick="window.location.href='{% url 'signin' %}'">Sign In</button>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block page_js %}
+<script src="{% static 'js/utils.js' %}"></script>
+<script src="{% static 'js/signup.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base_app.html' %}
+{% load static %}
+
+{% block title %}Reservation – UMLab{% endblock %}
+
+{% block app_css %}
+<link rel="stylesheet" href="{% static 'CSS/reservation.css' %}">
+{% endblock %}
+
+{% block main %}
+<main class="rsv__main">
+
+    <!-- Header -->
+    <div class="rsv__header">
+        <div class="rsv__header-title">
+            <i class="fa-regular fa-rectangle-list"></i>
+            <h1>Reservation - Physics Laboratory</h1>
+        </div>
+        <div class="rsv__header-controls">
+            <div class="rsv__sort">
+                <button class="rsv__sort-btn active" data-filter="unapproved">Unapproved</button>
+                <button class="rsv__sort-btn" data-filter="approved">Approved</button>
+            </div>
+            <div class="rsv__filter">
+                <i class="fa-solid fa-sliders"></i>
+                <select class="rsv__filter-select">
+                    <option value="morning">Morning</option>
+                    <option value="afternoon">Afternoon</option>
+                    <option value="evening">Evening</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cards List — populated by reservation.js -->
+    <div class="rsv__list" id="reservation-list"></div>
+
+</main>
+{% endblock %}
+
+{% block page_scripts %}
+<script src="{% static 'js/reservation.js' %}"></script>
+{% endblock %}

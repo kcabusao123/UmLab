@@ -1,0 +1,57 @@
+{% extends 'kiosk/base_kiosk.html' %}
+{% load static %}
+
+{% block title %}Pick Equipment – UMLab Kiosk{% endblock %}
+
+{% block kiosk_css %}
+<link rel="stylesheet" href="{% static 'CSS/kiosk/pickequipment.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="kiosk__page">
+
+    <!-- Top Bar -->
+    <div class="peq__topbar">
+        <div class="peq__topbar-left">
+            <div class="kiosk__logo">
+                <img src="{% static 'assets/logo.png' %}" alt="UMLab">
+            </div>
+            <h1 class="peq__title">Pick your Equipment</h1>
+        </div>
+        <div class="peq__controls">
+            <div class="peq__search">
+                <input type="text" placeholder="Search equipment..." class="peq__search-input" id="search-input">
+                <i class="fa-solid fa-magnifying-glass peq__search-icon"></i>
+            </div>
+            <button class="peq__filter-btn">&#8801; aa-ZZ &#9660;</button>
+            <button class="kiosk__back-btn" onclick="history.back()">
+                <img src="{% static 'assets/back.png' %}" alt="Back">
+            </button>
+        </div>
+    </div>
+
+    <!-- Equipment Grid — populated by kiosk_equipment.js -->
+    <div class="peq__grid-wrapper">
+        <div class="peq__grid" id="equipment-grid"></div>
+    </div>
+
+    <!-- Footer -->
+    <div class="peq__footer">
+        <button class="peq__footer-btn peq__footer-btn--primary" id="reserve-btn">Reserve</button>
+        <button class="peq__footer-btn peq__footer-btn--outline" onclick="saveCartAndGo()">Edit your Pick</button>
+    </div>
+
+</div>
+
+<!-- store lab/type for JS -->
+<script>
+    const KIOSK_LAB  = "{{ lab }}";
+    const KIOSK_TYPE = "{{ user_type }}";
+    const API_EQUIPMENT_URL = "{% url 'kiosk_api_equipment' %}";
+    const ITEMS_URL  = "{% url 'kiosk_items' %}";
+</script>
+{% endblock %}
+
+{% block page_js %}
+<script src="{% static 'js/kiosk/kiosk_equipment.js' %}"></script>
+{% endblock %}

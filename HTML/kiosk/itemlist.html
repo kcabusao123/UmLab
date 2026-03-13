@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../CSS/global.css">
+    <link rel="stylesheet" href="../../CSS/kiosk/itemlist.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <title>Item List</title>
+</head>
+<body>
+
+    <div class="kiosk__page">
+
+        <div class="kiosk__logo">
+            <img src="/assets/logo.png" alt="UMLab">
+        </div>
+
+        <button class="kiosk__back-btn" onclick="history.back()">
+            <img src="/assets/back.png" alt="Back">
+        </button>
+
+        <!-- Card -->
+        <div class="il__card">
+
+            <h1 class="il__title">Item List</h1>
+
+            <!-- LOOP START — repeat for each selected equipment -->
+            <div class="il__item">
+                <div class="il__item-left">
+                    <span class="il__item-name">Equipment name</span>
+                    <div class="il__item-img"></div>
+                </div>
+                <div class="il__item-right">
+                    <span class="il__qty-label">quantity</span>
+                    <div class="il__qty-row">
+                        <button class="il__qty-btn" onclick="changeQty(this, -1)">&#8722;</button>
+                        <span class="il__qty-val">1</span>
+                        <button class="il__qty-btn" onclick="changeQty(this, 1)">&#43;</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="il__item">
+                <div class="il__item-left">
+                    <span class="il__item-name">Equipment name</span>
+                    <div class="il__item-img"></div>
+                </div>
+                <div class="il__item-right">
+                    <span class="il__qty-label">quantity</span>
+                    <div class="il__qty-row">
+                        <button class="il__qty-btn" onclick="changeQty(this, -1)">&#8722;</button>
+                        <span class="il__qty-val">1</span>
+                        <button class="il__qty-btn" onclick="changeQty(this, 1)">&#43;</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="il__item">
+                <div class="il__item-left">
+                    <span class="il__item-name">Equipment name</span>
+                    <div class="il__item-img"></div>
+                </div>
+                <div class="il__item-right">
+                    <span class="il__qty-label">quantity</span>
+                    <div class="il__qty-row">
+                        <button class="il__qty-btn" onclick="changeQty(this, -1)">&#8722;</button>
+                        <span class="il__qty-val">1</span>
+                        <button class="il__qty-btn" onclick="changeQty(this, 1)">&#43;</button>
+                    </div>
+                </div>
+            </div>
+            <!-- LOOP END -->
+
+            <!-- Actions -->
+            <div class="il__actions">
+                <button class="il__btn-proceed" onclick="window.location.href='fillout-details.html'">Proceed</button>
+                <button class="il__btn-back" onclick="window.history.back()">Back</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        function changeQty(btn, delta) {
+            const valEl = btn.parentElement.querySelector('.il__qty-val');
+            let val = parseInt(valEl.textContent);
+            val = Math.max(1, val + delta);
+            valEl.textContent = val;
+        }
+    </script>
+
+</body>
+</html>

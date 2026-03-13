@@ -1,0 +1,52 @@
+{% extends 'base_app.html' %}
+{% load static %}
+
+{% block title %}Dashboard – UMLab{% endblock %}
+
+{% block app_css %}
+<link rel="stylesheet" href="{% static 'CSS/dashboard.css' %}">
+{% endblock %}
+
+{% block main %}
+<main class="main__content">
+
+    <!-- Header -->
+    <div class="main__header">
+        <div class="header__title">
+            <i class="fa-regular fa-rectangle-list"></i>
+            <h1>Dashboard - Physics Laboratory</h1>
+        </div>
+        <div class="header__filter">
+            <i class="fa-solid fa-sliders"></i>
+            <select class="filter__select" id="session-filter">
+                <option value="morning">Morning</option>
+                <option value="afternoon">Afternoon</option>
+                <option value="evening">Evening</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Morning Section -->
+    <div class="dash__session" id="section-morning">
+        <h2 class="dash__session-label">Morning</h2>
+        <div class="cards__grid" id="list-morning"></div>
+    </div>
+
+    <!-- Afternoon Section -->
+    <div class="dash__session" id="section-afternoon">
+        <h2 class="dash__session-label">Afternoon</h2>
+        <div class="cards__grid" id="list-afternoon"></div>
+    </div>
+
+    <!-- Evening Section -->
+    <div class="dash__session" id="section-evening">
+        <h2 class="dash__session-label">Evening</h2>
+        <div class="cards__grid" id="list-evening"></div>
+    </div>
+
+</main>
+{% endblock %}
+
+{% block page_scripts %}
+<script src="{% static 'js/dashboard.js' %}"></script>
+{% endblock %}

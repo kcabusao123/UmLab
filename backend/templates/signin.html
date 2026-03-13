@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'CSS/signin-signout.css' %}">
+{% endblock %}
+
+{% block title %}Sign In – UMLab{% endblock %}
+
+{% block body %}
+<div class="signin__container">
+
+    <!-- Left Panel -->
+    <div class="signupleftpanel__container">
+        <div class="logo">
+            <img src="{% static 'assets/logo.png' %}" alt="UMLab" class="logo-img">
+        </div>
+        <h2>Welcome Back!</h2>
+        <p>"A good university laboratory is not just a room filled with equipment—it's a place where curiosity is tested, failures are studied, and discoveries are born."</p>
+        <button class="signup__button" id="signup-button" onclick="window.location.href='{% url 'signup' %}'">Sign Up</button>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="signinrightpanel__container">
+        <div class="signin_form">
+            <h1>Sign in to UMLab</h1>
+            <div class="input-box">
+                <i class="fa-regular fa-envelope"></i>
+                <input type="text" id="signin-email" placeholder="EMAIL OR USERNAME" required>
+            </div>
+            <div class="input-box">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="signin-password" placeholder="PASSWORD" required>
+            </div>
+            <a href="#" class="forgot-password">Forget your Password?</a>
+            <button class="signin__button" id="signin-btn">Sign in</button>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block page_js %}
+<script src="{% static 'js/utils.js' %}"></script>
+<script src="{% static 'js/signin.js' %}"></script>
+{% endblock %}

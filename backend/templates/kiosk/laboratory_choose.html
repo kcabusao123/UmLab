@@ -1,0 +1,37 @@
+{% extends 'kiosk/base_kiosk.html' %}
+{% load static %}
+
+{% block title %}Choose Laboratory – UMLab Kiosk{% endblock %}
+
+{% block kiosk_css %}
+<link rel="stylesheet" href="{% static 'CSS/kiosk/laboratory-choose.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="kiosk__page">
+
+    <div class="kiosk__logo">
+        <img src="{% static 'assets/logo.png' %}" alt="UMLab">
+    </div>
+
+    <button class="kiosk__back-btn" onclick="history.back()">
+        <img src="{% static 'assets/back.png' %}" alt="Back">
+    </button>
+
+    <div class="kiosk__center">
+        <h1 class="kiosk__title">Choose One Laboratory</h1>
+
+        <div class="lab__grid">
+            <button class="lab__btn" onclick="window.location.href='{% url 'kiosk_equipment' %}?lab=physics&type={{ user_type }}'">PHYSICS</button>
+            <button class="lab__btn lab__btn--unavailable" disabled>BIOLOGY</button>
+            <button class="lab__btn lab__btn--unavailable" disabled>CIVIL</button>
+            <button class="lab__btn lab__btn--unavailable" disabled>CHEMISTRY</button>
+            <button class="lab__btn lab__btn--unavailable" disabled>CULINARY</button>
+            <button class="lab__btn lab__btn--unavailable" disabled>ELECTRICAL</button>
+            <button class="lab__btn lab__btn--unavailable" disabled>MECHANICAL</button>
+            <button class="lab__btn lab__btn--unavailable" disabled>HYDROLIC</button>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% load static %}
+<aside class="sidebar">
+    <div class="sidebar__logo">
+        <img src="{% static 'assets/logo.png' %}" alt="UMLab" class="sidebar__logo-img">
+    </div>
+
+    <nav class="sidebar__nav">
+        <a href="{% url 'dashboard' %}" class="nav__item {% if active_page == 'dashboard' %}active{% endif %}" data-page="dashboard">
+            <i class="fa-solid fa-table-columns"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="{% url 'reservation' %}" class="nav__item {% if active_page == 'reservation' %}active{% endif %}" data-page="reservation">
+            <i class="fa-regular fa-calendar-check"></i>
+            <span>Reservation</span>
+        </a>
+        <a href="{% url 'schedule' %}" class="nav__item {% if active_page == 'schedule' %}active{% endif %}" data-page="schedule">
+            <i class="fa-regular fa-clock"></i>
+            <span>Schedule</span>
+        </a>
+        <a href="{% url 'students' %}" class="nav__item {% if active_page == 'students' %}active{% endif %}" data-page="students">
+            <i class="fa-solid fa-user-group"></i>
+            <span>Students</span>
+        </a>
+        <a href="{% url 'logout' %}" class="nav__item" data-page="logout">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Logout</span>
+        </a>
+    </nav>
+
+    <div class="sidebar__admin">
+        <div class="admin__avatar">
+            <i class="fa-regular fa-user"></i>
+        </div>
+        <div class="admin__info">
+            <span class="admin__name">{{ request.user.get_full_name|default:request.user.username }}</span>
+            <span class="admin__role">Physics Laboratory</span>
+        </div>
+    </div>
+</aside>

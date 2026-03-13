@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../CSS/global.css">
+    <link rel="stylesheet" href="../../CSS/kiosk/fillout-details.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <title>Fill Out Details</title>
+</head>
+<body>
+
+    <div class="kiosk__page">
+
+        <div class="kiosk__logo">
+            <img src="/assets/logo.png" alt="UMLab">
+        </div>
+
+        <button class="kiosk__back-btn" onclick="history.back()">
+            <img src="/assets/back.png" alt="Back">
+        </button>
+
+        <!-- Form Card -->
+        <div class="fo__card">
+
+            <h1 class="fo__title">Fill out the Details</h1>
+
+            <form class="fo__form">
+
+                <div class="fo__row">
+                    <label class="fo__label" for="borrower">Name of the Borrower:</label>
+                    <input class="fo__input" type="text" id="borrower" name="borrower" required>
+                </div>
+
+                <div class="fo__row">
+                    <label class="fo__label" for="filing-date">Date of Filing:</label>
+                    <input class="fo__input" type="date" id="filing-date" name="filing_date" required>
+                </div>
+
+                <div class="fo__row">
+                    <label class="fo__label" for="teacher">Name of the Teacher:</label>
+                    <select class="fo__input fo__select" id="teacher" name="teacher" required>
+                        <option value="" disabled selected></option>
+                        <option value="teacher1">Teacher 1</option>
+                        <option value="teacher2">Teacher 2</option>
+                    </select>
+                </div>
+
+                <div class="fo__row">
+                    <label class="fo__label" for="date-use">Date of use:</label>
+                    <select class="fo__input fo__select" id="date-use" name="date_use" required>
+                        <option value="" disabled selected></option>
+                    </select>
+                </div>
+
+                <div class="fo__row">
+                    <label class="fo__label" for="date-return">Date of return:</label>
+                    <select class="fo__input fo__select" id="date-return" name="date_return" required>
+                        <option value="" disabled selected></option>
+                    </select>
+                </div>
+
+                <div class="fo__row">
+                    <label class="fo__label" for="class-code">Class Code:</label>
+                    <select class="fo__input fo__select" id="class-code" name="class_code" required>
+                        <option value="" disabled selected></option>
+                    </select>
+                </div>
+
+                <div class="fo__row">
+                    <label class="fo__label" for="college">College:</label>
+                    <select class="fo__input fo__select" id="college" name="college" required>
+                        <option value="" disabled selected></option>
+                        <option value="coe">College of Engineering</option>
+                        <option value="cas">College of Arts and Sciences</option>
+                    </select>
+                </div>
+
+                <div class="fo__row">
+                    <label class="fo__label" for="course">Course:</label>
+                    <select class="fo__input fo__select" id="course" name="course" required>
+                        <option value="" disabled selected></option>
+                        <option value="bsit">BSIT</option>
+                        <option value="bscs">BSCS</option>
+                        <option value="bsce">BSCE</option>
+                    </select>
+                </div>
+
+                <div class="fo__row">
+                    <label class="fo__label" for="equipment">Equipment:</label>
+                    <input class="fo__input" type="text" id="equipment" name="equipment" readonly>
+                </div>
+
+            </form>
+
+            <!-- Actions -->
+            <div class="fo__actions">
+                <button class="fo__btn-proceed" type="button">Proceed</button>
+                <button class="fo__btn-back" type="button" onclick="window.history.back()">Back</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

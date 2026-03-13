@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../CSS/global.css">
+    <link rel="stylesheet" href="../../CSS/sidebar.css">
+    <link rel="stylesheet" href="../../CSS/student/student-add.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>add - Students</title>
+</head>
+<body>
+
+    <div class="app__container">
+
+        <!-- ===== SIDEBAR ===== -->
+        <div id="sidebar-container"></div>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <main class="sa__main">
+
+            <!-- Header -->
+            <div class="sa__header">
+                <div class="sa__header-title">
+                    <i class="fa-regular fa-rectangle-list"></i>
+                    <h1>Students - Physics Laboratory</h1>
+                </div>
+            </div>
+
+            <!-- Form Card -->
+            <div class="sa__card-wrapper">
+                <div class="sa__card">
+                    
+                    <!-- Field: Name of the Teacher -->
+                    <div class="sa__row">
+                        <label class="sa__label">Name of the Teacher:</label>
+                        <input class="sa__input" type="text" id="teacher" name="teacher" required>
+                    </div>
+
+                    <!-- Field: Class Time -->
+                    <div class="sa__row">
+                        <label class="sa__label">Class Time:</label>
+                        <div class="sa__time-group">
+                            <input class="sa__input sa__time-input" type="time" id="class-time-in" name="class_time_in" required>
+                            <span class="sa__time-sep">to</span>
+                            <input class="sa__input sa__time-input" type="time" id="class-time-out" name="class_time_out" required>
+                        </div>
+                    </div>
+
+                    <!-- Field: Class Schedule -->
+                    <div class="sa__row">
+                        <label class="sa__label">Class Schedule:</label>
+                        <select class="sa__select" id="class-schedule" name="class_schedule" required>
+                            <option value="" disabled selected></option>
+                            <option value="mtw">Monday to Wednesday</option>
+                            <option value="thfs">Thursday to Saturday</option>
+                        </select>
+                    </div>
+
+                    <!-- Field: Class Code -->
+                    <div class="sa__row">
+                        <label class="sa__label">Class Code:</label>
+                        <input class="sa__input" type="text" id="class-code" name="class_code" required>
+                    </div>
+
+                    <!-- Field: Course -->
+                    <div class="sa__row">
+                        <label class="sa__label">Course:</label>
+                        <div class="sa__input-group">
+                            <select class="sa__select" id="course" name="course" required onchange="toggleOtherInput(this, 'course-other-add')">
+                                <option value="" disabled selected></option>
+                                <option value="CEE101\L">CEE101\L</option>
+                                <option value="PHYSICS101\L">PHYSICS101\L</option>
+                                <option value="PHYSICS102\L">PHYSICS102\L</option>
+                                <option value="SCI222/L">SCI222/L</option>
+                                <option value="others">OTHERS</option>
+                            </select>
+                            <input class="sa__input" type="text" id="course-other-add" name="course_other" placeholder="Specify course..." style="display:none;" required>
+                        </div>
+                    </div>  
+
+                    <!-- Upload Area -->
+                    <div class="sa__upload-area">
+                        <label class="sa__upload-btn" for="sa__file-input">
+                            Attach the attendance here
+                        </label>
+                        <input type="file" id="sa__file-input" class="sa__file-input" accept=".pdf,.xlsx,.xls,.csv">
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="sa__actions">
+                        <button class="sa__btn-add">Add</button>
+                        <button class="sa__btn-back" onclick="history.back()">Back</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+</body>
+</html>
+
+<script>
+    fetch('../sidebar.html')
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('sidebar-container').innerHTML = html;
+            const active = document.querySelector('.nav__item[data-page="students"]');
+            if (active) active.classList.add('active');
+        });
+
+    function toggleOtherInput(select, inputId) {
+        const input = document.getElementById(inputId);
+        if (select.value === 'others') {
+            input.style.display = 'block';
+            input.required = true;
+        } else {
+            input.style.display = 'none';
+            input.required = false;
+            input.value = '';
+        }
+    }
+</script>

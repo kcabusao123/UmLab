@@ -1,0 +1,44 @@
+{% extends 'kiosk/base_kiosk.html' %}
+{% load static %}
+
+{% block title %}Item List – UMLab Kiosk{% endblock %}
+
+{% block kiosk_css %}
+<link rel="stylesheet" href="{% static 'CSS/kiosk/itemlist.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="kiosk__page">
+
+    <div class="kiosk__logo">
+        <img src="{% static 'assets/logo.png' %}" alt="UMLab">
+    </div>
+
+    <button class="kiosk__back-btn" onclick="history.back()">
+        <img src="{% static 'assets/back.png' %}" alt="Back">
+    </button>
+
+    <div class="il__card">
+
+        <h1 class="il__title">Item List</h1>
+
+        <!-- populated by kiosk_itemlist.js -->
+        <div id="item-list-container"></div>
+
+        <div class="il__actions">
+            <button class="il__btn-proceed" id="proceed-btn">Proceed</button>
+            <button class="il__btn-back" onclick="window.history.back()">Back</button>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    const FILLOUT_URL = "{% url 'kiosk_fillout' %}";
+</script>
+{% endblock %}
+
+{% block page_js %}
+<script src="{% static 'js/kiosk/kiosk_itemlist.js' %}"></script>
+{% endblock %}

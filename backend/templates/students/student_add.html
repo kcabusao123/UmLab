@@ -1,0 +1,95 @@
+{% extends 'base_app.html' %}
+{% load static %}
+
+{% block title %}Add Students – UMLab{% endblock %}
+
+{% block app_css %}
+<link rel="stylesheet" href="{% static 'CSS/student/student-add.css' %}">
+{% endblock %}
+
+{% block main %}
+<main class="sa__main">
+
+    <!-- Header -->
+    <div class="sa__header">
+        <div class="sa__header-title">
+            <i class="fa-regular fa-rectangle-list"></i>
+            <h1>Students - Physics Laboratory</h1>
+        </div>
+    </div>
+
+    <!-- Form Card -->
+    <div class="sa__card-wrapper">
+        <div class="sa__card">
+
+            <div class="sa__row">
+                <label class="sa__label">Class Code:</label>
+                <select class="sa__select" id="class-code" name="class_code" required>
+                    <option value="" disabled selected></option>
+                    {% for s in schedules %}
+                    <option value="{{ s.class_code }}"
+                        data-teacher="{{ s.teacher_name }}"
+                        data-time-in="{{ s.class_time_in|time:'H:i' }}"
+                        data-time-out="{{ s.class_time_out|time:'H:i' }}"
+                        data-schedule="{{ s.class_schedule }}"
+                        data-course="{{ s.course }}">
+                        {{ s.class_code }}
+                    </option>
+                    {% empty %}
+                    <option value="" disabled>All classes already have an attendance file attached.</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="sa__row">
+                <label class="sa__label">Name of the Teacher:</label>
+                <input class="sa__input" type="text" id="teacher" name="teacher" required readonly>
+            </div>
+
+            <div class="sa__row">
+                <label class="sa__label">Class Time:</label>
+                <div class="sa__time-group">
+                    <input class="sa__input sa__time-input" type="time" id="class-time-in" name="class_time_in" required readonly>
+                    <span class="sa__time-sep">to</span>
+                    <input class="sa__input sa__time-input" type="time" id="class-time-out" name="class_time_out" required readonly>
+                </div>
+            </div>
+
+            <div class="sa__row">
+                <label class="sa__label">Class Schedule:</label>
+                <select class="sa__select" id="class-schedule" name="class_schedule" required disabled>
+                    <option value="" disabled selected></option>
+                    <option value="mon-wed">Monday to Wednesday</option>
+                    <option value="thur-sat">Thursday to Saturday</option>
+                </select>
+            </div>
+
+            <div class="sa__row">
+                <label class="sa__label">Course:</label>
+                <input class="sa__input" type="text" id="course" name="course" required readonly>
+            </div>
+
+            <!-- Upload Area -->
+            <div class="sa__upload-area">
+                <label class="sa__upload-btn" for="sa__file-input" id="sa__upload-label">
+                    Attach the attendance here
+                </label>
+                <input type="file" id="sa__file-input" class="sa__file-input" accept=".pdf">
+                <p class="sa__file-error" id="sa__file-error" style="display:none;color:#e53935;font-size:13px;margin:4px 0 0;">Only PDF files are allowed.</p>
+            </div>
+
+            <!-- Actions -->
+            <div class="sa__actions">
+                <button class="sa__btn-add" id="add-btn" type="button">Add</button>
+                <button class="sa__btn-back" type="button" onclick="window.location.href='{% url 'students' %}'">Back</button>
+            </div>
+
+        </div>
+    </div>
+
+</main>
+{% endblock %}
+
+{% block page_scripts %}
+<script src="{% static 'js/students_add.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../CSS/global.css">
+    <link rel="stylesheet" href="../../CSS/kiosk/pickequipment.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Pick Equipment</title>
+</head>
+<body>
+
+    <div class="kiosk__page">
+
+        <!-- Top Bar -->
+        <div class="peq__topbar">
+            <div class="peq__topbar-left">
+                <div class="kiosk__logo">
+                    <img src="/assets/logo.png" alt="UMLab">
+                </div>
+                <h1 class="peq__title">Pick your Equipment</h1>
+            </div>
+            <div class="peq__controls">
+                <div class="peq__search">
+                    <input type="text" placeholder="Search equipment..." class="peq__search-input">
+                    <i class="fa-solid fa-magnifying-glass peq__search-icon"></i>
+                </div>
+                <button class="peq__filter-btn">&#8801; aa-ZZ &#9660;</button>
+                <button class="kiosk__back-btn" onclick="history.back()">
+                    <img src="/assets/back.png" alt="Back">
+                </button>
+            </div>
+        </div>
+
+        <!-- Equipment Grid — 121px margin sides -->
+        <div class="peq__grid-wrapper">
+            <div class="peq__grid">
+
+                <!-- LOOP THIS CARD -->
+                <div class="peq__card">
+                    <div class="peq__card-img"></div>
+                    <span class="peq__card-name">Equipment name</span>
+                    <div class="peq__qty-row">
+                        <button class="peq__qty-btn" onclick="changeQty(this, -1)">&#8722;</button>
+                        <span class="peq__qty-val">1</span>
+                        <button class="peq__qty-btn" onclick="changeQty(this, 1)">&#43;</button>
+                    </div>
+                    <button class="peq__add-btn" onclick="addItem(this)">Add</button>
+                </div>
+                <!-- END LOOP -->
+
+
+
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="peq__footer">
+            <button class="peq__footer-btn peq__footer-btn--primary">Reserve</button>
+            <button class="peq__footer-btn peq__footer-btn--outline" onclick="window.location.href='itemlist.html'">Edit your Pick</button>
+        </div>
+
+    </div>
+
+    <script>
+        function toggleSelect(card) {
+            card.classList.toggle('peq__card--selected');
+        }
+
+        function changeQty(btn, delta) {
+            const valEl = btn.parentElement.querySelector('.peq__qty-val');
+            let val = parseInt(valEl.textContent);
+            val = Math.max(1, val + delta);
+            valEl.textContent = val;
+        }
+
+        function addItem(btn) {
+            const card = btn.closest('.peq__card');
+            card.classList.toggle('peq__card--selected');
+            btn.textContent = card.classList.contains('peq__card--selected') ? 'Added' : 'Add';
+            btn.classList.toggle('peq__add-btn--added', card.classList.contains('peq__card--selected'));
+        }
+    </script>
+
+</body>
+</html>
